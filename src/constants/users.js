@@ -27,3 +27,18 @@ export const DELETE_USER_SUCCESS = 'delete-user-success';
  * Delete users action error
  */
 export const DELETE_USER_ERROR = 'delete-user-error';
+
+/**
+ * Insert user action request
+ */
+export const INSERT_USER_REQUESTED = 'insert-user-requested';
+
+/**
+ * Insert user action success
+ */
+export const INSERT_USER_SUCCESS = 'insert-user-success';
+
+/**
+ * Insert user action error
+ */
+export const INSERT_USER_ERROR = 'insert-user-error';

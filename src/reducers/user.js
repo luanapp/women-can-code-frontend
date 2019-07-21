@@ -5,6 +5,9 @@ import {
   GET_USERS_ERROR,
   GET_USERS_REQUESTED,
   GET_USERS_SUCCESS,
+  INSERT_USER_ERROR,
+  INSERT_USER_REQUESTED,
+  INSERT_USER_SUCCESS,
 } from '../constants/users';
 
 const defaultState = {};
@@ -22,6 +25,12 @@ export default (state = defaultState, action) => {
     case DELETE_USER_SUCCESS:
       return requestSuccessState(state);
     case DELETE_USER_ERROR:
+      return requestErrorState(state, { error: action.error });
+    case INSERT_USER_REQUESTED:
+      return requestLoadingState(state);
+    case INSERT_USER_SUCCESS:
+      return requestSuccessState(state, { user: action.user });
+    case INSERT_USER_ERROR:
       return requestErrorState(state, { error: action.error });
     default:
       return state;

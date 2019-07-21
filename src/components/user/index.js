@@ -16,26 +16,22 @@ import { toggleModal } from '../../actions/modal';
 
 const className = block('user-view');
 
-const mapStateToProps = state => {
-  return {
-    users: state.user.users,
-    open: state.modal.modals[DELETE_USER_MODAL],
-  };
-};
+const mapStateToProps = state => ({
+  users: state.user.users,
+  open: state.modal.modals[DELETE_USER_MODAL],
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getUsers: () => {
-      return dispatch(getUsers());
-    },
-    deleteUser: userId => {
-      return dispatch(deleteUser(userId));
-    },
-    toggleModal: () => {
-      return dispatch(toggleModal(DELETE_USER_MODAL));
-    },
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  getUsers: () => {
+    return dispatch(getUsers());
+  },
+  deleteUser: userId => {
+    return dispatch(deleteUser(userId));
+  },
+  toggleModal: () => {
+    return dispatch(toggleModal(DELETE_USER_MODAL));
+  },
+});
 
 const enhance = compose(
   connect(

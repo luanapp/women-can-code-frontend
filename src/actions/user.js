@@ -5,8 +5,15 @@ import {
   GET_USERS_ERROR,
   GET_USERS_REQUESTED,
   GET_USERS_SUCCESS,
+  INSERT_USER_ERROR,
+  INSERT_USER_REQUESTED,
+  INSERT_USER_SUCCESS,
 } from '../constants/users';
-import { deleteUser as deleteUserService, getUsers as getUserService } from '../service/user';
+import {
+  deleteUser as deleteUserService,
+  getUsers as getUserService,
+  insertUser as insertUserService,
+} from '../service/user';
 
 export const getUsers = () => {
   return dispatch => {
@@ -33,6 +40,20 @@ export const deleteUser = userId => {
       })
       .catch(error => {
         dispatch({ type: DELETE_USER_ERROR, error });
+      });
+  };
+};
+
+export const insertUser = user => {
+  return dispatch => {
+    dispatch({ type: INSERT_USER_REQUESTED });
+
+    insertUserService(user)
+      .then(response => {
+        dispatch({ type: INSERT_USER_SUCCESS, user: response.data });
+      })
+      .catch(error => {
+        dispatch({ type: INSERT_USER_ERROR, error });
       });
   };
 };

@@ -23,7 +23,7 @@ const DeleteModal = ({ user, open, handleClose, confirmDelete }) => (
       <Button onClick={confirmDelete(user.id)} color="primary">
         Yes
       </Button>
-      <Button onClick={handleClose} color="primary" autofocus>
+      <Button onClick={handleClose} color="primary" autoFocus>
         No
       </Button>
     </DialogActions>
