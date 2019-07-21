@@ -7,3 +7,7 @@ const baseUrl = () => {
 export const getUsers = () => {
   return axios.get(`${baseUrl()}/user`);
 };
+
+export const deleteUser = userId => {
+  return axios.delete(`${baseUrl()}/user/${userId}`);
+};

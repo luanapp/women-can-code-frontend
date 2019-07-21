@@ -1,4 +1,11 @@
-import { GET_USERS_ERROR, GET_USERS_REQUESTED, GET_USERS_SUCCESS } from '../constants/users';
+import {
+  DELETE_USER_ERROR,
+  DELETE_USER_REQUESTED,
+  DELETE_USER_SUCCESS,
+  GET_USERS_ERROR,
+  GET_USERS_REQUESTED,
+  GET_USERS_SUCCESS,
+} from '../constants/users';
 
 const defaultState = {};
 
@@ -7,9 +14,14 @@ export default (state = defaultState, action) => {
     case GET_USERS_REQUESTED:
       return requestLoadingState(state);
     case GET_USERS_SUCCESS:
-      console.log('###', action.users);
       return requestSuccessState(state, { users: action.users });
     case GET_USERS_ERROR:
+      return requestErrorState(state, { error: action.error });
+    case DELETE_USER_REQUESTED:
+      return requestLoadingState(state);
+    case DELETE_USER_SUCCESS:
+      return requestSuccessState(state);
+    case DELETE_USER_ERROR:
       return requestErrorState(state, { error: action.error });
     default:
       return state;

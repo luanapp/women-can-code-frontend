@@ -1,5 +1,3 @@
-import './index.scss';
-
 import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
