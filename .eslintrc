@@ -1,0 +1,49 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": [
+    "airbnb",
+    "./eslint/best-practices.js"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "strict": "error",
+    "prettier/prettier": "error",
+    "react/forbid-prop-types": "off",
+    "react/jsx-filename-extension": [
+      "error",
+      {
+        "extensions": [".js"]
+      }
+    ],
+    "react/no-danger": "off",
+    "react/prefer-stateless-function": [
+      "error",
+      {
+        "ignorePureComponents": false
+      }
+    ],
+    "react/sort-prop-types": [
+      "error",
+      {
+        "ignoreCase": false
+      }
+    ],
+    "react/style-prop-object": "off"
+  }
+}
