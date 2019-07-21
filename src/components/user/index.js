@@ -1,9 +1,11 @@
+import { Container, Fab } from '@material-ui/core';
 import React, { PureComponent } from 'react';
 import { deleteUser, getUsers } from '../../actions/user';
 
-import { Container } from '@material-ui/core';
+import { Add } from '@material-ui/icons';
 import { DELETE_USER_MODAL } from '../../constants/modals';
 import DeleteModal from './deleteModal';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Title from './title';
 import UserTable from './table';
@@ -63,6 +65,9 @@ class UserPage extends PureComponent {
     return (
       <Container maxWidth="lg" className={className()}>
         <Title>User List</Title>
+        <Fab component={Link} to="/user/new" size="small" color="primary" aria-label="Add User">
+          <Add />
+        </Fab>
         <UserTable users={users} deleteUser={this.openDeleteModal.bind(this)} />
         <DeleteModal user={userToDelete} open={open} handleClose={toggleModal} handleDelete={deleteUser} />
       </Container>

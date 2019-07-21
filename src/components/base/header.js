@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import LoadingBar from 'react-redux-loading-bar';
 import React from 'react';
 
 /**
@@ -7,14 +7,11 @@ import React from 'react';
  * @param {Header.propTypes} props - Props
  * @return {React.StatelessComponent} Component
  */
-const Header = ({ parentBem }) => (
-  <header className={parentBem('header')}>
-    <p className={parentBem({ text: 'top' })} />
+const Header = () => (
+  <header>
+    <p>Test</p>
+    <LoadingBar scope="header" />
   </header>
 );
-
-Header.propTypes = {
-  parentBem: PropTypes.func.isRequired,
-};
 
 export default Header;
