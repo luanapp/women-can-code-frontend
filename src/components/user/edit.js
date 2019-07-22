@@ -1,9 +1,12 @@
 import { Button, Container, TextField } from '@material-ui/core';
 import React, { PureComponent } from 'react';
+import { compose, withProps } from 'recompose';
+import { equals, isNil } from 'ramda';
+import { getUserById, saveUser } from '../../actions/user';
 
-import { compose } from 'recompose';
+import SaveIcon from '@material-ui/icons/Save';
+import classNames from 'classnames';
 import { connect } from 'react-redux';
-import { insertUser } from '../../actions/user';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
@@ -16,6 +19,12 @@ const styles = theme => ({
     marginRight: theme.spacing(1),
     width: 200,
   },
+  leftIcon: {
+    marginRight: theme.spacing(1),
+  },
+  iconSmall: {
+    fontSize: 20,
+  },
 });
 
 const mapStateToProps = state => ({
@@ -23,7 +32,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  insertUser: user => dispatch(insertUser(user)),
+  saveUser: user => dispatch(saveUser(user)),
+  getUserById: userId => dispatch(getUserById(userId)),
 });
 
 const enhance = compose(
@@ -31,7 +41,10 @@ const enhance = compose(
     mapStateToProps,
     mapDispatchToProps
   ),
-  withStyles(styles)
+  withStyles(styles),
+  withProps(({ match: { params: { userId } } }) => ({
+    userId: userId !== 'new' ? userId : null,
+  }))
 );
 
 class EditUser extends PureComponent {
@@ -44,23 +57,36 @@ class EditUser extends PureComponent {
     },
   };
 
+  componentDidMount() {
+    const { userId, getUserById } = this.props;
+    if (!isNil(userId)) {
+      getUserById(userId);
+    }
+  }
+
+  componentWillReceiveProps(newProps) {
+    const { user: oldUser } = this.state;
+    const { user: newUser } = newProps;
+    if (!equals(oldUser, newUser)) {
+      this.setState({
+        user: newUser,
+      });
+    }
+  }
+
   handleChange = name => event => {
     const { user } = this.state;
-    const newUser = Object.assign({}, user, { [name]: event.target.value });
-    console.log(user);
-    console.log(newUser);
-    this.setState({ user: newUser });
+    this.setState({ user: Object.assign({}, user, { [name]: event.target.value }) });
   };
 
   saveUser = () => {
-    console.log(this.state.user);
-    this.props.insertUser(this.state.user);
+    this.props.saveUser(this.state.user);
   };
 
   render() {
     const { classes } = this.props;
     const {
-      user: { name, lastName, username, email },
+      user: { id, name, lastName, username, email },
     } = this.state;
     return (
       <Container>
@@ -119,7 +145,8 @@ class EditUser extends PureComponent {
           />
           <Container>
             <Button variant="contained" color="primary" onClick={this.saveUser.bind(this)}>
-              Save User
+              <SaveIcon className={classNames(classes.leftIcon, classes.iconSmall)} />
+              {isNil(id) ? 'Create User' : 'Save User'}
             </Button>
           </Container>
         </form>

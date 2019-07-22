@@ -5,15 +5,21 @@ import {
   GET_USERS_ERROR,
   GET_USERS_REQUESTED,
   GET_USERS_SUCCESS,
-  INSERT_USER_ERROR,
-  INSERT_USER_REQUESTED,
-  INSERT_USER_SUCCESS,
+  GET_USER_ERROR,
+  GET_USER_REQUESTED,
+  GET_USER_SUCCESS,
+  SAVE_USER_ERROR,
+  SAVE_USER_REQUESTED,
+  SAVE_USER_SUCCESS,
 } from '../constants/users';
 import {
   deleteUser as deleteUserService,
+  getUserById as getUserByIdService,
   getUsers as getUserService,
   insertUser as insertUserService,
+  updateUser as updateUserService,
 } from '../service/user';
+import { isEmpty, isNil } from 'ramda';
 
 export const getUsers = () => {
   return dispatch => {
@@ -25,6 +31,20 @@ export const getUsers = () => {
       })
       .catch(error => {
         dispatch({ type: GET_USERS_ERROR, error });
+      });
+  };
+};
+
+export const getUserById = userId => {
+  return dispatch => {
+    dispatch({ type: GET_USER_REQUESTED });
+
+    getUserByIdService(userId)
+      .then(response => {
+        dispatch({ type: GET_USER_SUCCESS, user: response.data });
+      })
+      .catch(error => {
+        dispatch({ type: GET_USER_ERROR, error });
       });
   };
 };
@@ -44,16 +64,17 @@ export const deleteUser = userId => {
   };
 };
 
-export const insertUser = user => {
+export const saveUser = user => {
   return dispatch => {
-    dispatch({ type: INSERT_USER_REQUESTED });
+    const saveCall = !isNil(user.id) && !isEmpty(user.id) ? updateUserService : insertUserService;
+    dispatch({ type: SAVE_USER_REQUESTED });
 
-    insertUserService(user)
+    saveCall(user)
       .then(response => {
-        dispatch({ type: INSERT_USER_SUCCESS, user: response.data });
+        dispatch({ type: SAVE_USER_SUCCESS, user: response.data });
       })
       .catch(error => {
-        dispatch({ type: INSERT_USER_ERROR, error });
+        dispatch({ type: SAVE_USER_ERROR, error });
       });
   };
 };

@@ -4,17 +4,25 @@ import { compose, withHandlers } from 'recompose';
 
 import PropTypes from 'prop-types';
 import React from 'react';
+import { withRouter } from 'react-router-dom';
+
+const hst = ({ history, id }) => () => history.push(`/user/${id}`);
 
 const enhance = compose(
   withHandlers({
     deleteHandler: ({ deleteUser }) => ({ user }) => () => {
       deleteUser(user);
     },
-    editHandler: ({ editUser }) => ({ userId }) => () => editUser(userId),
   })
 );
 
-const UserTable = ({ users, deleteHandler, editHandler }) => (
+const EditButton = withRouter(({ history, user }) => (
+  <IconButton onClick={hst({ history, id: user.id })}>
+    <EditOutlined>Edit</EditOutlined>
+  </IconButton>
+));
+
+const UserTable = ({ users, deleteHandler }) => (
   <Table>
     <TableHead>
       <TableRow>
@@ -32,9 +40,7 @@ const UserTable = ({ users, deleteHandler, editHandler }) => (
           <TableCell>{user.username}</TableCell>
           <TableCell>{user.email}</TableCell>
           <TableCell>
-            <IconButton onClick={editHandler}>
-              <EditOutlined>Edit</EditOutlined>
-            </IconButton>
+            <EditButton user={user} />
             <IconButton onClick={deleteHandler({ user })}>
               <DeleteForeverOutlined>Delete</DeleteForeverOutlined>
             </IconButton>
@@ -48,7 +54,6 @@ const UserTable = ({ users, deleteHandler, editHandler }) => (
 UserTable.propTypes = {
   users: PropTypes.array.isRequired,
   deleteHandler: PropTypes.func.isRequired,
-  editHandler: PropTypes.func.isRequired,
 };
 
 export default enhance(UserTable);

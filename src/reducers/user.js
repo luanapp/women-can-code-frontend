@@ -5,9 +5,12 @@ import {
   GET_USERS_ERROR,
   GET_USERS_REQUESTED,
   GET_USERS_SUCCESS,
-  INSERT_USER_ERROR,
-  INSERT_USER_REQUESTED,
-  INSERT_USER_SUCCESS,
+  GET_USER_ERROR,
+  GET_USER_REQUESTED,
+  GET_USER_SUCCESS,
+  SAVE_USER_ERROR,
+  SAVE_USER_REQUESTED,
+  SAVE_USER_SUCCESS,
 } from '../constants/users';
 
 const defaultState = {};
@@ -20,17 +23,23 @@ export default (state = defaultState, action) => {
       return requestSuccessState(state, { users: action.users });
     case GET_USERS_ERROR:
       return requestErrorState(state, { error: action.error });
+    case GET_USER_REQUESTED:
+      return requestLoadingState(state);
+    case GET_USER_SUCCESS:
+      return requestSuccessState(state, { user: action.user });
+    case GET_USER_ERROR:
+      return requestErrorState(state, { error: action.error });
     case DELETE_USER_REQUESTED:
       return requestLoadingState(state);
     case DELETE_USER_SUCCESS:
       return requestSuccessState(state);
     case DELETE_USER_ERROR:
       return requestErrorState(state, { error: action.error });
-    case INSERT_USER_REQUESTED:
+    case SAVE_USER_REQUESTED:
       return requestLoadingState(state);
-    case INSERT_USER_SUCCESS:
+    case SAVE_USER_SUCCESS:
       return requestSuccessState(state, { user: action.user });
-    case INSERT_USER_ERROR:
+    case SAVE_USER_ERROR:
       return requestErrorState(state, { error: action.error });
     default:
       return state;

@@ -14,6 +14,21 @@ export const GET_USERS_SUCCESS = 'get-users-success';
 export const GET_USERS_ERROR = 'get-users-error';
 
 /**
+ * Get user action request
+ */
+export const GET_USER_REQUESTED = 'get-user-requested';
+
+/**
+ * Get user action success
+ */
+export const GET_USER_SUCCESS = 'get-user-success';
+
+/**
+ * Get user action error
+ */
+export const GET_USER_ERROR = 'get-user-error';
+
+/**
  * Delete users action request
  */
 export const DELETE_USER_REQUESTED = 'delete-user-requested';
@@ -31,14 +46,14 @@ export const DELETE_USER_ERROR = 'delete-user-error';
 /**
  * Insert user action request
  */
-export const INSERT_USER_REQUESTED = 'insert-user-requested';
+export const SAVE_USER_REQUESTED = 'insert-user-requested';
 
 /**
  * Insert user action success
  */
-export const INSERT_USER_SUCCESS = 'insert-user-success';
+export const SAVE_USER_SUCCESS = 'insert-user-success';
 
 /**
  * Insert user action error
  */
-export const INSERT_USER_ERROR = 'insert-user-error';
+export const SAVE_USER_ERROR = 'insert-user-error';
