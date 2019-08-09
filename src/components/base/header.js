@@ -9,7 +9,7 @@ import React from 'react';
  */
 const Header = () => (
   <header>
-    <p>Test</p>
+    <p />
     <LoadingBar scope="header" />
   </header>
 );
